@@ -1,0 +1,5 @@
+C:/Users/arnau/Documents/GitHub/AR-Foundation/.utmp/RelWithDebInfo/62y1u4ep/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/arnau/Documents/GitHub/AR-Foundation/.utmp/RelWithDebInfo/62y1u4ep/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/arnau/Documents/GitHub/AR-Foundation/.utmp/RelWithDebInfo/62y1u4ep/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/arnau/Documents/GitHub/AR-Foundation/.utmp/RelWithDebInfo/62y1u4ep/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/arnau/Documents/GitHub/AR-Foundation/.utmp/RelWithDebInfo/62y1u4ep/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
