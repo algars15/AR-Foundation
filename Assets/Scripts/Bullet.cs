@@ -2,30 +2,28 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float lifeTime = 4f; // Destrucció automàtica si no impacta
+    [SerializeField] private float speed = 10f; //[cite: 5]
+    [SerializeField] private float lifeTime = 4f; //[cite: 5]
 
     private void Start()
     {
-        // Allibera memòria si la bala surt disparada i no toca res
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject, lifeTime); //[cite: 5]
     }
 
     private void Update()
     {
-        // Avança en la direcció cap a on apunta el prefab
-        transform.position += transform.right * speed * Time.deltaTime;
+        // Avança cap endavant (eix Z del prefab de la bala)
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Comprovem si ha impactat contra un esquelet (o un fill del seu prefab)
-        SkeletonBehavior skeleton = other.GetComponentInParent<SkeletonBehavior>();
+        SkeletonBehavior skeleton = other.GetComponentInParent<SkeletonBehavior>(); //[cite: 5]
 
         if (skeleton != null)
         {
-            Destroy(skeleton.gameObject); // Elimina l'esquelet a l'instant
-            Destroy(gameObject);          // Destrueix la bala
+            Destroy(skeleton.gameObject); // Destrueix l'esquelet[cite: 5]
+            Destroy(gameObject);          // Destrueix la bala[cite: 5]
         }
     }
 }
