@@ -538,7 +538,7 @@ public class GameUIManager : MonoBehaviour
         SetRect(endStatsText.gameObject, new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f), Vector2.zero, new Vector2(700, 150));
 
         // 7. Boto Tornar a Jugar
-        endRestartButton = CreateRuntimeButton("RestartButton", cardObj.transform, "VOLVER A JUGAR", new Color(0.12f, 0.48f, 0.95f, 1f), Color.white, 32);
+        endRestartButton = CreateRuntimeButton("RestartButton", cardObj.transform, "TORNAR A JUGAR", new Color(0.12f, 0.48f, 0.95f, 1f), Color.white, 32);
         SetRect(endRestartButton.gameObject, new Vector2(0.5f, 0.26f), new Vector2(0.5f, 0.26f), Vector2.zero, new Vector2(450, 90));
         endRestartButton.onClick.AddListener(RestartGame);
 

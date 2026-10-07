@@ -44,7 +44,7 @@ public class CastleBehavior : MonoBehaviour
         int enemiesToSpawn = spawnAmout - spawnCounter;
         if (enemiesText != null)
         {
-            enemiesText.text = enemiesToSpawn + " Enemies";
+            enemiesText.text = enemiesToSpawn + " Enemics";
         }
 
         if (waitingForEnemies)
@@ -65,7 +65,7 @@ public class CastleBehavior : MonoBehaviour
                 else
                 {
                     spawnCounter = 0;
-                    if (roundText != null) roundText.text = "Round " + round;
+                    if (roundText != null) roundText.text = "Ronda " + round;
                     waitingForEnemies = false;
                     if (waitText != null) waitText.gameObject.SetActive(false);
                     int spawnAugment = (int)((float)spawnAmout * difficultIncrease);
@@ -142,7 +142,7 @@ public class CastleBehavior : MonoBehaviour
             if (enemiesText != null) enemiesText.gameObject.SetActive(false);
             if (waitText != null)
             {
-                waitText.text = "The Castle has fallen!";
+                waitText.text = "El castell ha caigut!";
                 waitText.gameObject.SetActive(true);
             }
         }
@@ -153,7 +153,7 @@ public class CastleBehavior : MonoBehaviour
             if (enemiesText != null) enemiesText.gameObject.SetActive(false);
             if (waitText != null)
             {
-                waitText.text = "You Won!";
+                waitText.text = "Has guanyat!";
                 waitText.gameObject.SetActive(true);
             }
         }
@@ -189,12 +189,12 @@ public class CastleBehavior : MonoBehaviour
         if (healthText != null) healthText.gameObject.SetActive(true);
         if (roundText != null)
         {
-            roundText.text = "Round 1";
+            roundText.text = "Ronda 1";
             roundText.gameObject.SetActive(true);
         }
         if (enemiesText != null)
         {
-            enemiesText.text = spawnAmout + " Enemies";
+            enemiesText.text = spawnAmout + " Enemics";
             enemiesText.gameObject.SetActive(true);
         }
         if (waitText != null)
