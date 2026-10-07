@@ -22,19 +22,16 @@ public class SkeletonBehavior : MonoBehaviour
     {
         if (targetCastle == null) return;
 
-        // Instanciate the direction towards the castle and lock Y Axis.
         Vector3 direction = (targetCastle.position - transform.position).normalized;
-        direction.y = 0; // Mantenir-lo horitzontal sobre el pla
+        direction.y = 0;
         if (direction != Vector3.zero)
         {
             transform.forward = direction;
         }
 
-        // Move the Skeleton to the castle.
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    // Hit the castle and die.
     private void OnTriggerEnter(Collider other)
     {
         CastleBehavior castle = other.GetComponentInParent<CastleBehavior>();
