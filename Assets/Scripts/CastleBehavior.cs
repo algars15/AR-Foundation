@@ -28,6 +28,13 @@ public class CastleBehavior : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthDisplay();
         spawner = GetComponentInChildren<EnemySpawner>();
+
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.RegisterCastle(this);
+            GameUIManager.Instance.UpdateHealth(currentHealth, maxHealth);
+            GameUIManager.Instance.UpdateWaveInfo(round, numberOfRounds, spawnAmout);
+        }
     }
 
     private void Update()
@@ -35,11 +42,19 @@ public class CastleBehavior : MonoBehaviour
         if (ended) return;
 
         int enemiesToSpawn = spawnAmout - spawnCounter;
-        enemiesText.text = enemiesToSpawn + "Enemies";
+        if (enemiesText != null)
+        {
+            enemiesText.text = enemiesToSpawn + " Enemies";
+        }
 
         if (waitingForEnemies)
         {
             int enemiesNum = FindObjectsByType<SkeletonBehavior>().Length;
+            if (GameUIManager.Instance != null)
+            {
+                GameUIManager.Instance.UpdateWaveInfo(round, numberOfRounds, enemiesNum);
+            }
+
             if (enemiesNum == 0)
             {
                 round++;
@@ -50,28 +65,41 @@ public class CastleBehavior : MonoBehaviour
                 else
                 {
                     spawnCounter = 0;
-                    roundText.text = "Round" + round;
+                    if (roundText != null) roundText.text = "Round " + round;
                     waitingForEnemies = false;
-                    waitText.gameObject.SetActive(false);
+                    if (waitText != null) waitText.gameObject.SetActive(false);
                     int spawnAugment = (int)((float)spawnAmout * difficultIncrease);
                     spawnAmout += spawnAugment;
                     spawnTime *= 1 - difficultIncrease;
+
+                    if (GameUIManager.Instance != null)
+                    {
+                        GameUIManager.Instance.UpdateWaveInfo(round, numberOfRounds, spawnAmout);
+                    }
                 }
             }
         }
         else
         {
+            if (GameUIManager.Instance != null)
+            {
+                GameUIManager.Instance.UpdateWaveInfo(round, numberOfRounds, enemiesToSpawn);
+            }
+
             timer += Time.deltaTime;
             if (timer >= spawnTime)
             {
-                spawner.SpawnSkeletonAroundCastle();
+                if (spawner != null)
+                {
+                    spawner.SpawnSkeletonAroundCastle();
+                }
                 spawnCounter++;
                 timer = 0f;
 
                 if (spawnCounter >= spawnAmout)
                 {
                     waitingForEnemies = true;
-                    waitText.gameObject.SetActive(true);
+                    if (waitText != null) waitText.gameObject.SetActive(true);
                 }
             }
         }
@@ -83,10 +111,17 @@ public class CastleBehavior : MonoBehaviour
         {
             healthText.text = $"{currentHealth} / {maxHealth}";
         }
+
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.UpdateHealth(currentHealth, maxHealth);
+        }
     }
 
     public void TakeDamage(int amount)
     {
+        if (ended) return;
+
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
         UpdateHealthDisplay();
@@ -97,25 +132,80 @@ public class CastleBehavior : MonoBehaviour
         }
     }
 
-
     public void End(bool dead)
     {
         ended = true;
         if (dead)
         {
-            healthText.gameObject.SetActive(false);
-            roundText.gameObject.SetActive(false);
-            enemiesText.gameObject.SetActive(false);
-            waitText.text = "The Castle has fallen!";
-            waitText.gameObject.SetActive(true);
+            if (healthText != null) healthText.gameObject.SetActive(false);
+            if (roundText != null) roundText.gameObject.SetActive(false);
+            if (enemiesText != null) enemiesText.gameObject.SetActive(false);
+            if (waitText != null)
+            {
+                waitText.text = "The Castle has fallen!";
+                waitText.gameObject.SetActive(true);
+            }
         }
         else
         {
-            healthText.gameObject.SetActive(false);
-            roundText.gameObject.SetActive(false);
-            enemiesText.gameObject.SetActive(false);
-            waitText.text = "You Won!";
-            waitText.gameObject.SetActive(true);
+            if (healthText != null) healthText.gameObject.SetActive(false);
+            if (roundText != null) roundText.gameObject.SetActive(false);
+            if (enemiesText != null) enemiesText.gameObject.SetActive(false);
+            if (waitText != null)
+            {
+                waitText.text = "You Won!";
+                waitText.gameObject.SetActive(true);
+            }
+        }
+
+        // Limpiar esqueletos restantes al acabar la partida
+        SkeletonBehavior[] enemies = FindObjectsByType<SkeletonBehavior>();
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null) Destroy(enemy.gameObject);
+        }
+
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.ShowGameOver(!dead, round, numberOfRounds);
+        }
+        else
+        {
+            Debug.LogWarning("[CastleBehavior] GameUIManager.Instance es NULL en End()!");
+        }
+    }
+
+    public void ResetCastle()
+    {
+        currentHealth = maxHealth;
+        round = 1;
+        timer = 0f;
+        spawnCounter = 0;
+        waitingForEnemies = false;
+        ended = false;
+
+        UpdateHealthDisplay();
+
+        if (healthText != null) healthText.gameObject.SetActive(true);
+        if (roundText != null)
+        {
+            roundText.text = "Round 1";
+            roundText.gameObject.SetActive(true);
+        }
+        if (enemiesText != null)
+        {
+            enemiesText.text = spawnAmout + " Enemies";
+            enemiesText.gameObject.SetActive(true);
+        }
+        if (waitText != null)
+        {
+            waitText.gameObject.SetActive(false);
+        }
+
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.UpdateHealth(currentHealth, maxHealth);
+            GameUIManager.Instance.UpdateWaveInfo(round, numberOfRounds, spawnAmout);
         }
     }
 }

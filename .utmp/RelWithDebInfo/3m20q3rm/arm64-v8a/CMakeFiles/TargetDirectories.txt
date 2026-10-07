@@ -1,0 +1,5 @@
+C:/Users/pguts/OneDrive/Documentos/GitHub/AR-Foundation/.utmp/RelWithDebInfo/3m20q3rm/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/pguts/OneDrive/Documentos/GitHub/AR-Foundation/.utmp/RelWithDebInfo/3m20q3rm/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/pguts/OneDrive/Documentos/GitHub/AR-Foundation/.utmp/RelWithDebInfo/3m20q3rm/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/pguts/OneDrive/Documentos/GitHub/AR-Foundation/.utmp/RelWithDebInfo/3m20q3rm/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/pguts/OneDrive/Documentos/GitHub/AR-Foundation/.utmp/RelWithDebInfo/3m20q3rm/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

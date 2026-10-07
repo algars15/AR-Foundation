@@ -22,8 +22,12 @@ public class Bullet : MonoBehaviour
 
         if (skeleton != null)
         {
-            Destroy(skeleton.gameObject); // Destrueix l'esquelet[cite: 5]
-            Destroy(gameObject);          // Destrueix la bala[cite: 5]
+            if (GameUIManager.Instance != null)
+            {
+                GameUIManager.Instance.RegisterEnemyDefeated();
+            }
+            Destroy(skeleton.gameObject); // Destrueix l'esquelet
+            Destroy(gameObject);          // Destrueix la bala
         }
     }
 }
