@@ -10,7 +10,7 @@ public class GameUIManager : MonoBehaviour
     public static GameUIManager Instance { get; private set; }
 
     [Header("Configuration")]
-    [Tooltip("Si es verdadero, las instrucciones se muestran primero y bloquean todo hasta pulsar Entendido")]
+    [Tooltip("Si es cert, les instruccions es mostren primer i bloquegen tot fins premer Entes")]
     [SerializeField] private bool showInstructionsOnStart = true;
 
     [Header("Panels")]
@@ -68,16 +68,16 @@ public class GameUIManager : MonoBehaviour
         }
         Instance = this;
 
-        // Búsqueda y vinculación automática de emergencia por si faltan referencias en el Inspector
+        // Cerca i vinculacio automatica per si falten referencies a l'Inspector
         AutoFindReferences();
     }
 
     private void Start()
     {
-        // Desactivar posibles elementos molestos de plantillas que bloqueen raycasts
+        // Desactiva elements de plantilles que puguin bloquejar raycasts
         DisableBlockingTemplateObjects();
 
-        // Asegurar que todos los botones tienen listeners
+        // Assegura que tots els botons tenen listeners
         SetupButtonListeners();
 
         if (showInstructionsOnStart && instructionsPanel != null)
@@ -102,13 +102,13 @@ public class GameUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Auto-detecta paneles, textos y botones en la jerarquía del Canvas si no están asignados en el Inspector.
+    /// Auto-detecta panells, textos i botons en la jerarquia del Canvas si no estan assignats a l'Inspector.
     /// </summary>
     public void AutoFindReferences()
     {
         Transform canvasTr = transform;
 
-        // 1. Paneles
+        // 1. Panells
         if (mainMenuPanel == null)
         {
             Transform t = canvasTr.Find("MainMenuPanel");
@@ -130,7 +130,7 @@ public class GameUIManager : MonoBehaviour
             if (t != null) gameOverPanel = t.gameObject;
         }
 
-        // 2. Botones del Menú Principal
+        // 2. Botons del Menu Principal
         if (mainMenuPanel != null)
         {
             if (playButton == null)
@@ -150,13 +150,13 @@ public class GameUIManager : MonoBehaviour
             }
         }
 
-        // 3. Botón de Cerrar Instrucciones
+        // 3. Boto de tancar instruccions
         if (instructionsPanel != null && instructionsCloseButton == null)
         {
             instructionsCloseButton = instructionsPanel.GetComponentInChildren<Button>(true);
         }
 
-        // 4. Elementos del HUD
+        // 4. Elements del HUD
         if (gameHudPanel != null)
         {
             if (hudResetButton == null)
@@ -196,7 +196,7 @@ public class GameUIManager : MonoBehaviour
             }
         }
 
-        // 5. Elementos de Game Over
+        // 5. Elements de fi de partida
         if (gameOverPanel != null)
         {
             if (endRestartButton == null)
@@ -223,8 +223,6 @@ public class GameUIManager : MonoBehaviour
                 if (t != null) endStatsText = t.GetComponent<TextMeshProUGUI>();
             }
         }
-
-        Debug.Log($"[GameUIManager] AutoFind completado. Menú: {mainMenuPanel != null}, Instrucciones: {instructionsPanel != null}, HUD: {gameHudPanel != null}");
     }
 
     private void SetupButtonListeners()
@@ -233,14 +231,12 @@ public class GameUIManager : MonoBehaviour
         {
             playButton.onClick.RemoveListener(OnPlayClicked);
             playButton.onClick.AddListener(OnPlayClicked);
-            Debug.Log("[GameUIManager] Listener asignado a PlayButton.");
         }
 
         if (instructionsButton != null)
         {
             instructionsButton.onClick.RemoveListener(OpenInstructions);
             instructionsButton.onClick.AddListener(OpenInstructions);
-            Debug.Log("[GameUIManager] Listener asignado a InstructionsButton.");
         }
 
         if (quitButton != null)
@@ -253,7 +249,6 @@ public class GameUIManager : MonoBehaviour
         {
             instructionsCloseButton.onClick.RemoveListener(CloseInstructions);
             instructionsCloseButton.onClick.AddListener(CloseInstructions);
-            Debug.Log("[GameUIManager] Listener asignado a CloseInstructionsButton.");
         }
 
         if (hudResetButton != null)
@@ -285,7 +280,6 @@ public class GameUIManager : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        Debug.Log("[GameUIManager] Mostrando Menú Principal...");
         PlayButtonSfx();
 
         if (instructionsPanel != null) instructionsPanel.SetActive(false);
@@ -295,13 +289,12 @@ public class GameUIManager : MonoBehaviour
         if (mainMenuPanel != null)
         {
             mainMenuPanel.SetActive(true);
-            mainMenuPanel.transform.SetAsLastSibling(); // Traer al frente garantizado
+            mainMenuPanel.transform.SetAsLastSibling(); // Portar al davant de tot
         }
     }
 
     public void OnPlayClicked()
     {
-        Debug.Log("[GameUIManager] ¡Botón JUGAR pulsado! Iniciando HUD...");
         PlayButtonSfx();
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
@@ -315,13 +308,12 @@ public class GameUIManager : MonoBehaviour
         }
 
         SetStatusPrompt(activeCastle == null
-            ? "1. Apunta al suelo y selecciona el Castillo para colocarlo."
-            : "Defiende el Castillo. Escanea la carta para invocar canones.");
+            ? "1. Apunta al terra i selecciona el Castell per col·locar-lo."
+            : "Defensa el Castell. Escaneja la carta per invocar canons.");
     }
 
     public void OpenInstructions()
     {
-        Debug.Log("[GameUIManager] Abriendo Instrucciones...");
         PlayButtonSfx();
 
         if (gameHudPanel != null && gameHudPanel.activeSelf)
@@ -340,13 +332,12 @@ public class GameUIManager : MonoBehaviour
         if (instructionsPanel != null)
         {
             instructionsPanel.SetActive(true);
-            instructionsPanel.transform.SetAsLastSibling(); // Traer al frente absoluto
+            instructionsPanel.transform.SetAsLastSibling(); // Portar al davant absolut
         }
     }
 
     public void CloseInstructions()
     {
-        Debug.Log("[GameUIManager] ¡Botón ENTENDIDO pulsado! Cerrando instrucciones...");
         PlayButtonSfx();
 
         if (instructionsPanel != null)
@@ -380,7 +371,7 @@ public class GameUIManager : MonoBehaviour
     public void RegisterCastle(CastleBehavior castle)
     {
         activeCastle = castle;
-        SetStatusPrompt("Castillo desplegado. Escanea cartas para colocar canones defensivos.");
+        SetStatusPrompt("Castell desplegat. Escaneja cartes per col·locar canons defensius.");
     }
 
     public void UpdateHealth(int currentHealth, int maxHealth)
@@ -406,7 +397,7 @@ public class GameUIManager : MonoBehaviour
 
         if (enemiesText != null)
         {
-            enemiesText.text = $"Enemigos: {enemiesRemaining}";
+            enemiesText.text = $"Enemics: {enemiesRemaining}";
         }
     }
 
@@ -429,14 +420,12 @@ public class GameUIManager : MonoBehaviour
 
     public void ShowGameOver(bool isVictory, int roundReached, int totalRounds)
     {
-        Debug.Log($"[GameUIManager] ¡ShowGameOver invocado! Victoria: {isVictory}, Ronda: {roundReached}");
-
-        // Ocultar cualquier otra pantalla activa
+        // Oculta qualsevol altra pantalla activa
         if (gameHudPanel != null) gameHudPanel.SetActive(false);
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
         if (instructionsPanel != null) instructionsPanel.SetActive(false);
 
-        // Si el panel no existe o no fue asignado en la escena, crearlo dinámicamente ahora mismo
+        // Si el panell no existeix a l'escena, es construeix al vol
         if (gameOverPanel == null)
         {
             BuildRuntimeGameOverPanel();
@@ -445,7 +434,7 @@ public class GameUIManager : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
-            gameOverPanel.transform.SetAsLastSibling(); // Traer al frente absoluto
+            gameOverPanel.transform.SetAsLastSibling(); // Portar al davant de tot
         }
 
         if (isVictory)
@@ -457,7 +446,7 @@ public class GameUIManager : MonoBehaviour
             }
             if (endSubtitleText != null)
             {
-                endSubtitleText.text = "Has defendido el castillo con exito.";
+                endSubtitleText.text = "Has defensat el castell amb exit.";
             }
             if (endBannerBackground != null)
             {
@@ -474,7 +463,7 @@ public class GameUIManager : MonoBehaviour
             }
             if (endSubtitleText != null)
             {
-                endSubtitleText.text = "El castillo ha sido destruido por los enemigos.";
+                endSubtitleText.text = "El castell ha estat destruit pels enemics.";
             }
             if (endBannerBackground != null)
             {
@@ -485,21 +474,19 @@ public class GameUIManager : MonoBehaviour
 
         if (endStatsText != null)
         {
-            int rondasCompletadas = Mathf.Max(0, roundReached - (isVictory ? 0 : 1));
-            endStatsText.text = $"Rondas superadas: {rondasCompletadas} / {totalRounds}\n" +
-                                $"Enemigos derrotados: {totalEnemiesDefeated}";
+            int rondesSuperades = Mathf.Max(0, roundReached - (isVictory ? 0 : 1));
+            endStatsText.text = $"Rondes superades: {rondesSuperades} / {totalRounds}\n" +
+                                $"Enemics derrotats: {totalEnemiesDefeated}";
         }
     }
 
     private void BuildRuntimeGameOverPanel()
     {
-        Debug.Log("[GameUIManager] Construyendo GameOverPanel dinámicamente...");
-
         Canvas canvas = GetComponent<Canvas>();
-        if (canvas == null) canvas = FindFirstObjectByType<Canvas>();
+        if (canvas == null) canvas = FindAnyObjectByType<Canvas>();
         Transform parentTransform = canvas != null ? canvas.transform : transform;
 
-        // 1. Panel de fondo oscuro que cubre toda la pantalla
+        // 1. Panell de fons fosc que cobreix tota la pantalla
         GameObject goPanel = new GameObject("GameOverPanel", typeof(RectTransform));
         goPanel.transform.SetParent(parentTransform, false);
         RectTransform panelRt = goPanel.GetComponent<RectTransform>();
@@ -512,7 +499,7 @@ public class GameUIManager : MonoBehaviour
         overlay.color = new Color(0.04f, 0.05f, 0.08f, 0.95f);
         overlay.raycastTarget = true;
 
-        // 2. Tarjeta central
+        // 2. Targeta central
         GameObject cardObj = new GameObject("Card", typeof(RectTransform));
         cardObj.transform.SetParent(goPanel.transform, false);
         RectTransform cardRt = cardObj.GetComponent<RectTransform>();
@@ -525,7 +512,7 @@ public class GameUIManager : MonoBehaviour
         cardImg.color = new Color(0.11f, 0.15f, 0.22f, 1f);
         cardImg.raycastTarget = false;
 
-        // 3. Banner superior con color de victoria/derrota
+        // 3. Banner superior amb color de victoria o derrota
         GameObject bannerObj = new GameObject("Banner", typeof(RectTransform));
         bannerObj.transform.SetParent(cardObj.transform, false);
         RectTransform bannerRt = bannerObj.GetComponent<RectTransform>();
@@ -538,24 +525,24 @@ public class GameUIManager : MonoBehaviour
         endBannerBackground.color = defeatColor;
         endBannerBackground.raycastTarget = false;
 
-        // 4. Texto de Título
+        // 4. Text de Titol
         endTitleText = CreateRuntimeText("EndTitle", bannerObj.transform, "DERROTA", 44, FontStyles.Bold, Color.white, TextAlignmentOptions.Center);
         SetRect(endTitleText.gameObject, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
-        // 5. Texto de Subtítulo
-        endSubtitleText = CreateRuntimeText("EndSubtitle", cardObj.transform, "El castillo ha caído ante los enemigos.", 26, FontStyles.Normal, new Color(0.8f, 0.85f, 0.9f, 1f), TextAlignmentOptions.Center);
+        // 5. Text de Subtitol
+        endSubtitleText = CreateRuntimeText("EndSubtitle", cardObj.transform, "El castell ha caigut davant dels enemics.", 26, FontStyles.Normal, new Color(0.8f, 0.85f, 0.9f, 1f), TextAlignmentOptions.Center);
         SetRect(endSubtitleText.gameObject, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f), Vector2.zero, new Vector2(750, 70));
 
-        // 6. Texto de Estadísticas
-        endStatsText = CreateRuntimeText("EndStats", cardObj.transform, "Rondas superadas: 0\nEnemigos derrotados: 0", 28, FontStyles.Normal, Color.white, TextAlignmentOptions.Center);
+        // 6. Text d'Estadistiques
+        endStatsText = CreateRuntimeText("EndStats", cardObj.transform, "Rondes superades: 0\nEnemics derrotats: 0", 28, FontStyles.Normal, Color.white, TextAlignmentOptions.Center);
         SetRect(endStatsText.gameObject, new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f), Vector2.zero, new Vector2(700, 150));
 
-        // 7. Botón Volver a Jugar
+        // 7. Boto Tornar a Jugar
         endRestartButton = CreateRuntimeButton("RestartButton", cardObj.transform, "VOLVER A JUGAR", new Color(0.12f, 0.48f, 0.95f, 1f), Color.white, 32);
         SetRect(endRestartButton.gameObject, new Vector2(0.5f, 0.26f), new Vector2(0.5f, 0.26f), Vector2.zero, new Vector2(450, 90));
         endRestartButton.onClick.AddListener(RestartGame);
 
-        // 8. Botón Menú Principal
+        // 8. Boto Menu Principal
         endMainMenuButton = CreateRuntimeButton("MainMenuButton", cardObj.transform, "MENU PRINCIPAL", new Color(0.20f, 0.26f, 0.36f, 1f), Color.white, 28);
         SetRect(endMainMenuButton.gameObject, new Vector2(0.5f, 0.12f), new Vector2(0.5f, 0.12f), Vector2.zero, new Vector2(450, 80));
         endMainMenuButton.onClick.AddListener(ShowMainMenu);
@@ -574,7 +561,7 @@ public class GameUIManager : MonoBehaviour
         tmp.fontStyle = style;
         tmp.color = color;
         tmp.alignment = alignment;
-        tmp.enableWordWrapping = true;
+        tmp.textWrappingMode = TextWrappingModes.Normal;
         tmp.raycastTarget = false;
         return tmp;
     }
@@ -638,6 +625,7 @@ public class GameUIManager : MonoBehaviour
 
         totalEnemiesDefeated = 0;
 
+        // Neteja els enemics i les bales en escena
         SkeletonBehavior[] enemies = FindObjectsByType<SkeletonBehavior>();
         foreach (var enemy in enemies)
         {
@@ -650,6 +638,7 @@ public class GameUIManager : MonoBehaviour
             if (bullet != null) Destroy(bullet.gameObject);
         }
 
+        // Reinicia els canons instanciats per marcadors
         ARImageReset imageReset = FindAnyObjectByType<ARImageReset>();
         if (imageReset != null)
         {
@@ -661,14 +650,15 @@ public class GameUIManager : MonoBehaviour
             activeCastle = FindAnyObjectByType<CastleBehavior>();
         }
 
+        // Reinicia l'estat del castell
         if (activeCastle != null)
         {
             activeCastle.ResetCastle();
-            SetStatusPrompt("Partida reiniciada. Preparate para la primera oleada.");
+            SetStatusPrompt("Partida reiniciada. Prepara't per a la primera onada.");
         }
         else
         {
-            SetStatusPrompt("Apunta al suelo y coloca el Castillo para comenzar.");
+            SetStatusPrompt("Apunta al terra i col·loca el Castell per comencar.");
         }
     }
 

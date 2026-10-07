@@ -158,7 +158,7 @@ public class CastleBehavior : MonoBehaviour
             }
         }
 
-        // Limpiar esqueletos restantes al acabar la partida
+        // Neteja els esquelets restants en acabar la partida
         SkeletonBehavior[] enemies = FindObjectsByType<SkeletonBehavior>();
         foreach (var enemy in enemies)
         {
