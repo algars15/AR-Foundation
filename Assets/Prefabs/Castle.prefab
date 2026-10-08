@@ -503,7 +503,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -709,8 +709,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   skeletonPrefab: {fileID: 8858051749441068820, guid: 4c67ed6c086451b4db54ac4d24b626bb, type: 3}
-  spawnInterval: 2
+  swordSkeletonPrefab: {fileID: 8976987078014310810, guid: e75660f7a14c5204ca12a8fcd37d68a0, type: 3}
   spawnRadius: 4
+  swordSkeletonChance: 0.25
 --- !u!1 &7986390366115866582
 GameObject:
   m_ObjectHideFlags: 0
