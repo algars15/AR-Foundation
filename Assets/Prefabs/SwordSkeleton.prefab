@@ -1104,7 +1104,7 @@ GameObject:
   - component: {fileID: 9081935805931483500}
   m_Layer: 0
   m_Name: SwordSkeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbd9d5f4bf824547bb3d6cf31c7281f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkeletonBehavior
-  speed: 1
+  speed: 0.5
   damage: 20
   maxHealth: 3
   bulletTag: Bullet

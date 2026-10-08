@@ -308,8 +308,8 @@ public class GameUIManager : MonoBehaviour
         }
 
         SetStatusPrompt(activeCastle == null
-            ? "1. Apunta al terra i selecciona el Castell per col·locar-lo."
-            : "Defensa el Castell. Escaneja la carta per invocar canons.");
+            ? "1. Apunta al terra i escaneja la foto del Castell per col·locar-lo."
+            : "Defensa el Castell. Toca el terra per invocar canons.");
     }
 
     public void OpenInstructions()
@@ -371,7 +371,7 @@ public class GameUIManager : MonoBehaviour
     public void RegisterCastle(CastleBehavior castle)
     {
         activeCastle = castle;
-        SetStatusPrompt("Castell desplegat. Escaneja cartes per col·locar canons defensius.");
+        SetStatusPrompt("Castell desplegat. Toca el terra per invocar canons defensius.");
     }
 
     public void UpdateHealth(int currentHealth, int maxHealth)

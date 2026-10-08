@@ -14,6 +14,15 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnSkeletonAroundCastle()
     {
+        // 1. Comprovem si hi ha almenys un canó instanciat a l'escena
+        CannonBehavior cannon = FindAnyObjectByType<CannonBehavior>();
+        if (cannon == null)
+        {
+            // Si encara no s'ha col·locat cap canó, cancel·lem l'aparició
+            return;
+        }
+
+        // 2. Si hi ha canó, procedim a generar l'enemic
         GameObject prefabToSpawn = ChooseEnemyPrefab();
 
         if (prefabToSpawn == null) return;

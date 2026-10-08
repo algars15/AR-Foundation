@@ -20,8 +20,8 @@ public class CastleBehavior : MonoBehaviour
     private float timer = 2;
     private int spawnCounter = 0;
     private EnemySpawner spawner;
-    bool waitingForEnemies = false;
-    bool ended = false;
+    private bool waitingForEnemies = false;
+    private bool ended = false;
 
     void Start()
     {
@@ -40,6 +40,18 @@ public class CastleBehavior : MonoBehaviour
     private void Update()
     {
         if (ended) return;
+
+        // 1. COMPROBACIÓN DEL CAÑÓN: Si no hay cañón en escena, el juego se pausa a la espera
+        CannonBehavior cannon = FindAnyObjectByType<CannonBehavior>();
+        if (cannon == null)
+        {
+            if (waitText != null)
+            {
+                waitText.text = "Col·loca el canó per començar!";
+                waitText.gameObject.SetActive(true);
+            }
+            return; // Detiene la ejecución: ni avanza el tiempo ni cuenta rondas
+        }
 
         int enemiesToSpawn = spawnAmout - spawnCounter;
         if (enemiesText != null)
@@ -104,7 +116,11 @@ public class CastleBehavior : MonoBehaviour
                 if (spawnCounter >= spawnAmout)
                 {
                     waitingForEnemies = true;
-                    if (waitText != null) waitText.gameObject.SetActive(true);
+                    if (waitText != null)
+                    {
+                        waitText.text = "Derrota els enemics restants!";
+                        waitText.gameObject.SetActive(true);
+                    }
                 }
             }
         }
@@ -163,7 +179,6 @@ public class CastleBehavior : MonoBehaviour
             }
         }
 
-        // Neteja els esquelets restants en acabar la partida
         SkeletonBehavior[] enemies = FindObjectsByType<SkeletonBehavior>();
         foreach (var enemy in enemies)
         {

@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbd9d5f4bf824547bb3d6cf31c7281f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkeletonBehavior
-  speed: 1.5
+  speed: 1.4
   damage: 10
   maxHealth: 1
   bulletTag: Bullet
