@@ -2395,7 +2395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoinManager
   currentCoins: 10
   cannonCost: 5
-  maxCannons: 8
+  maxCannons: 5
   coinText: {fileID: 450212856}
 --- !u!4 &438501445
 Transform:
