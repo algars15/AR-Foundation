@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CannonBehavior
   bulletPrefab: {fileID: 3631404562364691389, guid: 25d920b64641a894da57676a769a53d5, type: 3}
   firePoint: {fileID: 5239681710568377614}
-  fireRate: 1.5
+  fireRate: 1.2
   rotSpeed: 100
   obstacleLayer:
     serializedVersion: 2
