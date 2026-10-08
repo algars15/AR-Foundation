@@ -64,6 +64,11 @@ public class CastleBehavior : MonoBehaviour
                 }
                 else
                 {
+                    if (CoinManager.Instance != null)
+                    {
+                        CoinManager.Instance.AddCoins(5);
+                    }
+
                     spawnCounter = 0;
                     if (roundText != null) roundText.text = "Ronda " + round;
                     waitingForEnemies = false;

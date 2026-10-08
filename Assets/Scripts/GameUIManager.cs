@@ -625,6 +625,12 @@ public class GameUIManager : MonoBehaviour
 
         totalEnemiesDefeated = 0;
 
+        //Neteja els coins i el comptador de canons
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.ResetEconomy();
+        }
+
         // Neteja els enemics i les bales en escena
         SkeletonBehavior[] enemies = FindObjectsByType<SkeletonBehavior>();
         foreach (var enemy in enemies)

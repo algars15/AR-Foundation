@@ -18,6 +18,12 @@ public class ARImageReset : MonoBehaviour
                 Destroy(trackedImage.gameObject);
             }
 
+            // Notifiquem al CoinManager que es poden tornar a col·locar canons
+            if (CoinManager.Instance != null)
+            {
+                CoinManager.Instance.RegisterCannonDestroyed();
+            }
+
             // Reinicia el component per tornar a detectar el marcador
             trackedImageManager.enabled = false;
             trackedImageManager.enabled = true;
